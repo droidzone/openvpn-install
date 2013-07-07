@@ -187,10 +187,10 @@ else
 	cd ~/ovpn-$CLIENT
 	sed -i "s|cert client.crt|cert $CLIENT.crt|" $CLIENT.conf
 	sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
-	sed -i "s|ca ca\.crt|ca ca_$CLIENT\.crt|" $CLIENT.conf
+	sed -i "s|ca ca\.crt|ca $CLIENT_ca\.crt|" $CLIENT.conf
 	cp $CLIENT.conf $CLIENT.ovpn
-	tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf ca_$CLIENT.crt $CLIENT.crt $CLIENT.key 
-	zip -r ../ovpn-$CLIENT.zip $CLIENT.ovpn ca_$CLIENT.crt $CLIENT.crt $CLIENT.key 
+	tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf $CLIENT_ca.crt $CLIENT.crt $CLIENT.key 
+	zip -r ../ovpn-$CLIENT.zip $CLIENT.ovpn $CLIENT_ca.crt $CLIENT.crt $CLIENT.key 
 	cd ~/
 	rm -r ovpn-$CLIENT
 	echo ""
