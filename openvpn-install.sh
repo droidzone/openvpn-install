@@ -24,6 +24,7 @@ fi
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
 # Sorry for doing this, I didn't want to :(
+
 echo "$(grep address /etc/network/interfaces | grep -v 127.0.0.1  | awk '{print $2}' | grep -q '.' | head -1)"
 if [ ! $? = 0 ]; then
 	IP=$(wget -qO- ipv4.icanhazip.com)
@@ -127,7 +128,9 @@ else
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
 	read -n1 -r -p "Press any key to continue..."
 	apt-get update
-	apt-get install openvpn iptables openssl zip unzip -y
+	apt-get install iptables openssl zip unzip libssl-dev liblzo2-dev libpam0g-dev -y
+	#openvpn
+	
 	cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
 	cd /etc/openvpn/easy-rsa/2.0/
 	# Let's fix one thing first...
