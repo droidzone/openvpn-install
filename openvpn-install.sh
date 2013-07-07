@@ -125,7 +125,7 @@ else
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
 	read -n1 -r -p "Press any key to continue..."
 	apt-get update
-	apt-get install openvpn iptables openssl -y
+	apt-get install openvpn iptables openssl zip unzip -y
 	cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
 	cd /etc/openvpn/easy-rsa/2.0/
 	# Let's fix one thing first...
@@ -179,19 +179,22 @@ else
 	# without asking for them
 	sed -i "s|remote my-server-1 1194|remote $IP $PORT|" /usr/share/doc/openvpn/examples/sample-config-files/client.conf
 	cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$CLIENT/$CLIENT.conf
-	cp /etc/openvpn/easy-rsa/2.0/keys/ca.crt ~/ovpn-$CLIENT
+	cp /etc/openvpn/easy-rsa/2.0/keys/ca.crt ~/ovpn-$CLIENT/ca_$CLIENT.crt
 	cp /etc/openvpn/easy-rsa/2.0/keys/$CLIENT.crt ~/ovpn-$CLIENT
 	cp /etc/openvpn/easy-rsa/2.0/keys/$CLIENT.key ~/ovpn-$CLIENT
 	cd ~/ovpn-$CLIENT
 	sed -i "s|cert client.crt|cert $CLIENT.crt|" $CLIENT.conf
 	sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
-	tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key
+	sed -i "s|ca ca\.crt|ca ca_$CLIENT\.crt|" $CLIENT.conf
+	cp $CLIENT.conf $CLIENT.ovpn
+	tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf ca_$CLIENT.crt $CLIENT.crt $CLIENT.key 
+	zip -r ../ovpn-$CLIENT.zip $CLIENT.ovpn ca_$CLIENT.crt $CLIENT.crt $CLIENT.key 
 	cd ~/
 	rm -r ovpn-$CLIENT
 	echo ""
 	echo "Finished!"
 	echo ""
-	echo "Your client config is available at ~/ovpn-$CLIENT.tar.gz"
+	echo "Your client config is available at ~/ovpn-$CLIENT.tar.gz and ~/ovpn-$CLIENT.zip."
 	echo "If you want to add more clients, you simply need to run this script another time!"
 	# Try to detect a NATed connection and show a warning to potential
 	# LowEndSpirit users
