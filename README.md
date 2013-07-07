@@ -15,7 +15,11 @@ Run the script and follow the assistant:
 Optional prerequisite for cloning git repo:
 `apt-get install git`
 
+
+
+Main installation:
 `git clone https://github.com/droidzone/openvpn-install.git`
+
 `bash openvpn-install/openvpn-install.sh`
 
 Once it ends, you can run it again to add more users.
