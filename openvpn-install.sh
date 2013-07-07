@@ -53,6 +53,8 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo ""
 			echo "Tell me a name for the client cert"
 			echo "Please, use one word only, no special characters"
+			$hos=`hostname -f`
+			echo $host | sed 's/\./_/g'
 			read -p "Client name: " -e -i client CLIENT
 			cd /etc/openvpn/easy-rsa/2.0/
 			source ./vars
