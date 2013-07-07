@@ -69,7 +69,8 @@ if [ -e /etc/openvpn/server.conf ]; then
 			cd ~/ovpn-$CLIENT
 			sed -i "s|cert client.crt|cert $CLIENT.crt|" $CLIENT.conf
 			sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
-			tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key
+			cp $CLIENT.conf $CLIENT.ovpn
+			tar -czf ../ovpn-$CLIENT.tar.gz $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 			cd ~/
 			rm -r ovpn-$CLIENT
 			echo ""
