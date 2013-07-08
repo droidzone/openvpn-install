@@ -130,13 +130,14 @@ else
 	apt-get update
 	apt-get install iptables openssl zip unzip libssl-dev liblzo2-dev libpam0g-dev -y
 	#openvpn
-	echo Downloading sources for openvpn
-	wget http://swupdate.openvpn.org/community/releases/openvpn-2.3.2.tar.gz
-	tar xf openvpn-2.3.2.tar.gz
-	cd openvpn-2.3.2
-	./configure
-	make
-	make install
+	#echo Downloading sources for openvpn
+	#wget http://swupdate.openvpn.org/community/releases/openvpn-2.3.2.tar.gz
+	#tar xf openvpn-2.3.2.tar.gz
+	#cd openvpn-2.3.2
+	#./configure
+	#make
+	#make install
+	apt-get install openvpn iptables openssl -y
 	cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
 	cd /etc/openvpn/easy-rsa/2.0/
 	# Let's fix one thing first...
