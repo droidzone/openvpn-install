@@ -127,7 +127,7 @@ else
 	echo ""
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
 	read -n1 -r -p "Press any key to continue..."
-	apt-get update
+	#apt-get update    #Takes extra time
 	apt-get install iptables openssl zip unzip libssl-dev liblzo2-dev libpam0g-dev -y
 	#openvpn
 	#echo Downloading sources for openvpn
